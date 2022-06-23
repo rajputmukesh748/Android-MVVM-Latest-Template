@@ -29,7 +29,7 @@ class Controller : Application(), Application.ActivityLifecycleCallbacks,
             context = applicationContext,
             dataBaseName = applicationContext.packageName
         )
-        this.registerActivityLifecycleCallbacks(this)
+        registerActivityLifecycleCallbacks(this)
 //        FacebookSdk.fullyInitialize()
 //        AppEventsLogger.activateApp(this)
 //        Thread.setDefaultUncaughtExceptionHandler(this)

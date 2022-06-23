@@ -97,7 +97,6 @@
 <b><p>Change maximum time.</p></b>
           
           OtpTimer.setMaxTime(30, OtpTimeType.SECOND)
-          
       
 <b><p>Change Time interval.</p></b>
       //Every one second</br>
@@ -119,13 +118,10 @@
               DAYS
           }
           
-          
 <b><p>How to start timer</p></b>
 
           OtpTimer.startTimer()
-          
-          
-          
+
 <b><p>How to stop timer</p></b>
 
           OtpTimer.stopTimer()

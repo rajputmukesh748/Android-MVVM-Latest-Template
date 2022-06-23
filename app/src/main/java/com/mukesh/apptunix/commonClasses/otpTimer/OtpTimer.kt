@@ -74,7 +74,7 @@ object OtpTimer {
     fun setMaxTime(time: Int, type: OtpTimeType = OtpTimeType.MILLISECOND) {
         maxTime = when(type){
             OtpTimeType.MILLISECOND -> time.toLong()
-            OtpTimeType.SECOND -> TimeUnit.MINUTES.toMillis(time.toLong())
+            OtpTimeType.SECOND -> TimeUnit.SECONDS.toMillis(time.toLong())
             OtpTimeType.MINUTE -> TimeUnit.MINUTES.toMillis(time.toLong())
             OtpTimeType.HOURS -> TimeUnit.HOURS.toMillis(time.toLong())
             OtpTimeType.DAYS -> TimeUnit.DAYS.toMillis(time.toLong())
@@ -88,7 +88,7 @@ object OtpTimer {
     fun setTimeInterval(time: Int, type: OtpTimeType = OtpTimeType.MILLISECOND) {
         timeInterval = when(type){
             OtpTimeType.MILLISECOND -> time.toLong()
-            OtpTimeType.SECOND -> TimeUnit.MINUTES.toMillis(time.toLong())
+            OtpTimeType.SECOND -> TimeUnit.SECONDS.toMillis(time.toLong())
             OtpTimeType.MINUTE -> TimeUnit.MINUTES.toMillis(time.toLong())
             OtpTimeType.HOURS -> TimeUnit.HOURS.toMillis(time.toLong())
             OtpTimeType.DAYS -> TimeUnit.DAYS.toMillis(time.toLong())
