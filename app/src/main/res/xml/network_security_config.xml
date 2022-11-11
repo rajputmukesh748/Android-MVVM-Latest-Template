@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">https://www.google.com/</domain>
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+            <!--            <certificates src="@raw/trusted_roots"/>-->
+        </trust-anchors>
+    </domain-config>
+</network-security-config>

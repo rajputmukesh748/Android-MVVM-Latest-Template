@@ -15,7 +15,7 @@
 -keep class androidx.appcompat.widget.** { *; }
 
 ################ DATA CLASSES ####################
--keep class com.mukesh.apptunix.model.** { *; }
+-keep class com.mukesh.template.model.** { *; }
 
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
@@ -43,7 +43,7 @@
 }
 
 # Ignore annotation used for build tooling.
--dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+#-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 
 # Ignore JSR 305 annotations for embedding nullability information.
 -dontwarn javax.annotation.**
@@ -81,7 +81,7 @@
 
 # OkHttp platform used only on JVM and when Conscrypt dependency is available.
 -dontwarn okhttp3.internal.platform.ConscryptPlatform
--dontwarn org.conscrypt.ConscryptHostnameVerifier
+#-dontwarn org.conscrypt.ConscryptHostnameVerifier
 
 
 ############## Dexter Rules ####################
