@@ -14,6 +14,10 @@ class PagingHandlerRepository @Inject constructor(
     private val apiParams: ApiParams
 ) : GenericPagingSource<UserDataDC>() {
 
+
+    /**
+     * Add Extra Values for Api Call
+     * */
     private var extraParam: HashMap<String, Any>? = null
 
 
@@ -38,7 +42,13 @@ class PagingHandlerRepository @Inject constructor(
     /**
      * Set Extra Params If Any
      * */
-    fun setExtraParam(extraParam: HashMap<String, Any>){
+    fun setExtraParam(extraParam: HashMap<String, Any>) = run {
         this.extraParam = extraParam
     }
+
+
+    /**
+     * Remove Params
+     * */
+    fun removeParams() = run { extraParam = null }
 }
