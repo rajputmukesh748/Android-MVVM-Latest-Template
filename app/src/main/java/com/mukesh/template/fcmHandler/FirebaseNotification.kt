@@ -106,7 +106,7 @@ class FirebaseNotification : FirebaseMessagingService() {
         if(Build.VERSION.SDK_INT >= 31)
             NavDeepLinkBuilder(this)
                 .setComponentName(MainActivity::class.java)
-                .setGraph(R.navigation.zing)
+                .setGraph(R.navigation.template)
                 .setDestination(destinationId)
                 .setArguments(bundle)
                 .createTaskStackBuilder()
@@ -114,7 +114,7 @@ class FirebaseNotification : FirebaseMessagingService() {
         else
             NavDeepLinkBuilder(this)
                 .setComponentName(MainActivity::class.java)
-                .setGraph(R.navigation.zing)
+                .setGraph(R.navigation.template)
                 .setDestination(destinationId)
                 .setArguments(bundle)
                 .createPendingIntent()
