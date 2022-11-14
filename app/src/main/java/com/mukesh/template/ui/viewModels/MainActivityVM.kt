@@ -4,61 +4,59 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.mukesh.template.commonClasses.genericAdapter.recyclerAdapter.GenericAdapter
+import com.mukesh.template.commonClasses.genericAdapter.recyclerAdapter.GenericLoadAdapter
 import com.mukesh.template.dataStore.getAuthToken
 import com.mukesh.template.databinding.DemoBinding
 import com.mukesh.template.model.UserDataDC
-import com.mukesh.template.networking.BaseResponse
 import com.mukesh.template.networking.NetworkState
-import com.mukesh.template.networking.Repository
+import com.mukesh.template.networking.repository.PagingHandlerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityVM @Inject constructor(
-    private val repository: Repository
+    private val pagingHandlerRepository: PagingHandlerRepository
 ) : ViewModel() {
+
+    init {
+        dummyData()
+    }
 
     /**
      * Adapter With View Binding
      * */
-    val adapter = object : GenericAdapter<DemoBinding, String>() {
+    val adapter = object : GenericAdapter<DemoBinding, UserDataDC>() {
         override fun onCreateView(
             layoutInflater: LayoutInflater,
             parent: ViewGroup,
             viewType: Int
         ) = DemoBinding.inflate(layoutInflater, parent, false)
 
-        override fun onBindHolder(holder: DemoBinding, dataClass: String) = Unit
-    }
+        override fun onBindHolder(holder: DemoBinding, dataClass: UserDataDC) {
+            holder.btText.text = dataClass.title.orEmpty()
+        }
+    }.apply { withLoadStateFooter(footer = GenericLoadAdapter()) }
 
 
     /**
      * Dummy Data Api Call
      * */
-    private val _dummyDataResponse by lazy { MutableSharedFlow<NetworkState<BaseResponse<UserDataDC>>>() }
+    private val _dummyDataResponse by lazy { MutableSharedFlow<NetworkState<PagingData<UserDataDC>>>() }
     val dummyData get() = _dummyDataResponse.asSharedFlow()
 
-    fun dummyData() = getAuthToken {
+    private fun dummyData() = getAuthToken {
         viewModelScope.launch {
-            repository.dummyData().onStart {
+            pagingHandlerRepository.getPagerData().cachedIn(viewModelScope).onStart {
                 _dummyDataResponse.emit(NetworkState.LOADING())
             }.catch { error ->
-                _dummyDataResponse.emit(NetworkState.ERROR(error))
-            }.collect { response ->
-                if (response.isSuccessful)
-                    _dummyDataResponse.emit(NetworkState.SUCCESS(response.body()))
-                else
-                    _dummyDataResponse.emit(
-                        NetworkState.ERROR(
-                            response.errorBody()?.string() ?: ""
-                        )
-                    )
+                _dummyDataResponse.emit(NetworkState.ERROR(error = error))
+            }.collectLatest {
+                _dummyDataResponse.emit(NetworkState.SUCCESS(it))
             }
         }
     }

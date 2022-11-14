@@ -1,9 +1,11 @@
 package com.mukesh.template.ui.views
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.mukesh.template.commonClasses.genericAdapter.recyclerAdapter.GenericLoadAdapter
 import com.mukesh.template.databinding.ActivityMainBinding
 import com.mukesh.template.networking.NetworkState
 import com.mukesh.template.networking.getErrorMessage
@@ -29,7 +31,6 @@ class MainActivity : AppCompatActivity(), SocketInterface {
         setContentView(activityMainBinding.root)
         SocketSetup.initializeInterface(this)
         activityMainBinding.rv.adapter = viewModel.adapter
-        viewModel.adapter.submitList(listOf("", "", ""))
         observeData()
     }
 
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity(), SocketInterface {
                     }
                     is NetworkState.SUCCESS -> {
                         //Handle Data
+                        viewModel.adapter.submitData(networkState.data!!)
                         println(networkState.data)
                     }
                 }

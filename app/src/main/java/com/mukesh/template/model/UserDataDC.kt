@@ -5,6 +5,12 @@ import com.google.gson.annotations.SerializedName
 
 @Keep
 data class UserDataDC(
-    @SerializedName("name")
-    var name: String? = null
+    @SerializedName("userId")
+    var userId: String? = null,
+    @SerializedName("id")
+    var id: String? = null,
+    @SerializedName("title")
+    var title: String? = null,
+    @SerializedName("completed")
+    var completed: String? = null
 )

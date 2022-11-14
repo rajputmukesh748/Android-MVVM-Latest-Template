@@ -72,21 +72,21 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'com.google.android.material:material:1.7.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation ("androidx.core:core-ktx:1.9.0")
+    implementation ("androidx.appcompat:appcompat:1.5.1")
+    implementation ("com.google.android.material:material:1.7.0")
+    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
 
     //Testing
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    testImplementation ("junit:junit:4.13.2")
+    androidTestImplementation ("androidx.test.ext:junit:1.1.4")
+    androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.0")
 
     //Play Services
-    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation ("com.google.android.gms:play-services-maps:18.1.0")
 
     //Swipe Refresh
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
     //Activity and Fragment
     implementation ("androidx.activity:activity-ktx:1.6.1")
@@ -148,6 +148,9 @@ dependencies {
 
     //Google
     implementation ("com.google.android.gms:play-services-auth:20.3.0")
+
+    //Pagination
+    implementation ("androidx.paging:paging-runtime:3.1.1")
 }
 
 kapt {
