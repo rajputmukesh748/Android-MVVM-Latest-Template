@@ -2,12 +2,14 @@ package com.mukesh.template.controller
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
+import com.mukesh.easydatastoremethods.calldatastore.CallDataStore
 import com.mukesh.template.socketSetUp.SocketSetup
 import com.mukesh.template.utils.mainThread
-import com.mukesh.easydatastoremethods.calldatastore.CallDataStore
 import dagger.hilt.android.HiltAndroidApp
+import java.lang.ref.WeakReference
 
 /**
  * Controller Class
@@ -15,6 +17,13 @@ import dagger.hilt.android.HiltAndroidApp
 @HiltAndroidApp
 class Controller : Application(), Application.ActivityLifecycleCallbacks,
     Thread.UncaughtExceptionHandler {
+
+
+    companion object {
+        @JvmStatic
+        var context: WeakReference<Context>? = null
+    }
+
 
     /**
      * On Create Method
@@ -37,9 +46,13 @@ class Controller : Application(), Application.ActivityLifecycleCallbacks,
     /**
      * Application Lifecycle Callback's
      * */
-    override fun onActivityCreated(p0: Activity, p1: Bundle?) = Unit
+    override fun onActivityCreated(activity: Activity, p1: Bundle?) {
+        context = WeakReference(activity)
+    }
     override fun onActivityStarted(p0: Activity) = Unit
-    override fun onActivityResumed(p0: Activity) = Unit
+    override fun onActivityResumed(activity: Activity) {
+        context = WeakReference(activity)
+    }
     override fun onActivityPaused(p0: Activity) = Unit
     override fun onActivityStopped(p0: Activity) = Unit
     override fun onActivitySaveInstanceState(p0: Activity, p1: Bundle) = Unit

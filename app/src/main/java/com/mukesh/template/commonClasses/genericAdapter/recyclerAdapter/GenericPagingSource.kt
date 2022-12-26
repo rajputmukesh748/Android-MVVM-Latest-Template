@@ -1,6 +1,5 @@
 package com.mukesh.template.commonClasses.genericAdapter.recyclerAdapter
 
-import android.util.Log
 import androidx.paging.*
 import com.mukesh.template.model.UserDataDC
 import kotlinx.coroutines.flow.Flow
@@ -60,7 +59,7 @@ abstract class GenericPagingSource<T : Any> : PagingSource<Int, T>() {
      * */
     fun getPagerData(): Flow<PagingData<UserDataDC>> {
         return Pager(
-            config = PagingConfig(pageSize = 10, enablePlaceholders = false),
+            config = PagingConfig(pageSize = 10, enablePlaceholders = true),
             pagingSourceFactory = { getPagingSourceFactory() },
         ).flow
     }

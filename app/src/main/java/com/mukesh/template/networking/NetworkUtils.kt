@@ -1,7 +1,11 @@
 package com.mukesh.template.networking
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.webkit.MimeTypeMap
 import com.google.gson.Gson
+import com.mukesh.template.controller.Controller
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -81,4 +85,20 @@ fun String?.getResponseError(): String{
     }catch (e:Exception){
         this
     }
+}
+
+
+/**
+ * Has Network Available
+ * */
+fun hasNetwork(): Boolean {
+    Controller.context?.get()?.let {
+        var isConnected: Boolean? = false // Initial Value
+        val connectivityManager =
+            it.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
+        if (activeNetwork != null && activeNetwork.isConnected)
+            isConnected = true
+        return isConnected ?: false
+    } ?: return false
 }

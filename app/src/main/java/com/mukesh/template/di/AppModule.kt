@@ -1,6 +1,6 @@
 package com.mukesh.template.di
 
-import com.bumptech.glide.load.engine.cache.ExternalPreferredCacheDiskCacheFactory
+import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.mukesh.template.BuildConfig
@@ -8,13 +8,13 @@ import com.mukesh.template.networking.ApiParams
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -32,17 +32,8 @@ class AppModule {
      * */
     @Provides
     @Singleton
-    fun cache(): Cache {
-        val httpCacheDirectory =
-            File(
-                ExternalPreferredCacheDiskCacheFactory.DEFAULT_DISK_CACHE_DIR,
-                BuildConfig.APPLICATION_ID
-            )
-        return Cache(
-            httpCacheDirectory,
-            ExternalPreferredCacheDiskCacheFactory.DEFAULT_DISK_CACHE_SIZE.toLong()
-        )
-    }
+    fun cache(@ApplicationContext context: Context): Cache =
+        Cache(context.cacheDir, (5 * 1024 * 1024).toLong())
 
 
     /**
@@ -60,7 +51,7 @@ class AppModule {
             .readTimeout(2, TimeUnit.MINUTES)
             .writeTimeout(2, TimeUnit.MINUTES)
             .addInterceptor(loggingInterceptor)
-            .addInterceptor(StatusCodeInterceptor.statusInterceptor)
+            .addInterceptor(NetworkInterceptor.interceptor)
             .retryOnConnectionFailure(true)
             .cache(cache)
             .build()
@@ -68,7 +59,7 @@ class AppModule {
         .connectTimeout(2, TimeUnit.MINUTES)
         .readTimeout(2, TimeUnit.MINUTES)
         .writeTimeout(2, TimeUnit.MINUTES)
-        .addInterceptor(StatusCodeInterceptor.statusInterceptor)
+        .addInterceptor(NetworkInterceptor.interceptor)
         .retryOnConnectionFailure(true)
         .cache(cache)
         .build()
@@ -79,7 +70,7 @@ class AppModule {
      * */
     @Provides
     @Singleton
-    fun gson(): Gson = GsonBuilder().setLenient().serializeNulls().create()
+    fun gson(): Gson = GsonBuilder().setLenient().create()
 
 
     /**
