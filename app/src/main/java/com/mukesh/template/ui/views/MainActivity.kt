@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity(), SocketInterface {
         super.onCreate(savedInstanceState)
         setContentView(activityMainBinding.root)
         SocketSetup.initializeInterface(this)
+        activityMainBinding.rv.setHasFixedSize(true)
         activityMainBinding.rv.adapter = viewModel.adapter
         observeData()
     }

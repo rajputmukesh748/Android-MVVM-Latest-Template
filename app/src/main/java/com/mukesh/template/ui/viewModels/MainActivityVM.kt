@@ -1,5 +1,6 @@
 package com.mukesh.template.ui.viewModels
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModel
@@ -40,7 +41,9 @@ class MainActivityVM @Inject constructor(
         override fun onBindHolder(holder: DemoBinding, dataClass: UserDataDC) {
             holder.btText.text = dataClass.title.orEmpty()
         }
-    }.apply { withLoadStateFooter(footer = GenericLoadAdapter()) }
+    }.apply {
+        withLoadStateFooter(footer = GenericLoadAdapter())
+    }
 
 
     /**

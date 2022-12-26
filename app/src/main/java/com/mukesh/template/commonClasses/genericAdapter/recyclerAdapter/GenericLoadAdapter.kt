@@ -18,7 +18,6 @@ import com.mukesh.template.databinding.ProgressLoaderBinding
  * */
 class GenericLoadAdapter : LoadStateAdapter<GenericLoadAdapter.ViewHolder>() {
 
-
     /**
      * On Create View Holder
      * */
@@ -35,9 +34,15 @@ class GenericLoadAdapter : LoadStateAdapter<GenericLoadAdapter.ViewHolder>() {
      * On Bind View Holder
      * */
     override fun onBindViewHolder(holder: ViewHolder, loadState: LoadState) {
+        Log.e("dsfsdfsdfsd", "fdsfsdf  $loadState")
         holder.bind(loadState)
     }
 
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+
+    }
 
     /**
      * View Holder
@@ -54,9 +59,9 @@ class GenericLoadAdapter : LoadStateAdapter<GenericLoadAdapter.ViewHolder>() {
      * Display Load State As Item
      * */
     override fun displayLoadStateAsItem(loadState: LoadState): Boolean {
-        return loadState is LoadState.Loading || loadState is LoadState.Error
+        Log.e("dsfsdfsdfsd", "fdsfsdf 1111111111111 $loadState")
+        return (loadState is LoadState.Loading) || (loadState is LoadState.Error)
     }
-
 
 
 }
