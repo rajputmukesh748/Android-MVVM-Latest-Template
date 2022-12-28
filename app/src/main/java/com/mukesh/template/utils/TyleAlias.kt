@@ -9,8 +9,6 @@ import com.mukesh.template.R
 
 typealias COLOR_ALIAS = R.color
 
-typealias ANIM_ALIAS = R.anim
-
 typealias ID_ALIAS = R.id
 
 typealias STRING_ALIAS = R.string

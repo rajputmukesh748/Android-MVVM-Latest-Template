@@ -11,6 +11,7 @@ import com.mukesh.template.networking.NetworkState
 import com.mukesh.template.networking.getErrorMessage
 import com.mukesh.template.socketSetUp.SocketInterface
 import com.mukesh.template.socketSetUp.SocketSetup
+import com.mukesh.template.ui.socialLogin.AppleLogin
 import com.mukesh.template.ui.viewModels.MainActivityVM
 import com.mukesh.template.utils.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,9 +47,11 @@ class MainActivity : AppCompatActivity(), SocketInterface {
                     is NetworkState.LOADING -> {
                         //Show Loader according to your requirement's
                     }
+
                     is NetworkState.ERROR -> {
                         this@MainActivity.showSnackBar(networkState.getErrorMessage())
                     }
+
                     is NetworkState.SUCCESS -> {
                         //Handle Data
                         viewModel.adapter.submitData(networkState.data!!)

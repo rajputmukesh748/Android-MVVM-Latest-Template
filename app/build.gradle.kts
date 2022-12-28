@@ -137,6 +137,7 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")
+    api("com.google.firebase:firebase-auth:21.1.0")
 
     //Facebook
     implementation("com.facebook.android:facebook-login:15.2.0")
